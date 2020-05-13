@@ -6,16 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import javax.xml.ws.Action;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/task")
@@ -175,7 +168,7 @@ public class TaskController extends BaseController{
      * @return com.demo.common.model.BaseMessage
      */
     @GetMapping("/taskStatus/update")
-    public BaseMessage updateTaskStatus(@Param("id") Integer id, @Param("taskStatus") Integer taskStatus) {
+    public BaseMessage updateTaskStatus(@Param("id") Integer id, @Param("taskStatus") String taskStatus) {
         BaseMessage msg = BaseMessage.instance();
         try {
             // 更新任务状态
@@ -208,7 +201,7 @@ public class TaskController extends BaseController{
      * @return com.demo.common.model.BaseMessage
      */
     @GetMapping("/submitStatus/update")
-    public BaseMessage updateSubmitStatus(@Param("id") Integer id, @Param("submitStatus") Integer submitStatus) {
+    public BaseMessage updateSubmitStatus(@Param("id") Integer id, @Param("submitStatus") String submitStatus) {
         BaseMessage msg = BaseMessage.instance();
         try {
             // 更新提交状态

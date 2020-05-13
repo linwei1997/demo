@@ -14,27 +14,9 @@ spring:
       enabled: true
       charset: UTF-8
       force: true
-  cloud:
-    consul:
-      discovery:
-        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-        service-name: demo
-        health-check-path: /actuator/health
-        register: true
-        prefer-ip-address: true
-      host: localhost
-      port: 8500
-      config:
-        enabled: true
-        format: yaml
-        default-context: aio-wage-wage
-        prefix: config
-        data-key: data
-        watch:
-          enabled: true
 mybatis:
   mapper-locations:
-  - "classpath*:mapper/*.xml"
+    - "classpath*:mapper/*.xml"
   configuration:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
@@ -48,4 +30,3 @@ logging:
   file:
     max-history: 30
     path: d:/logs/demo
-  

@@ -71,7 +71,7 @@ public interface TaskService {
      * @param taskStatus
      * @return java.lang.Integer
      */
-    Integer updateTaskStatus(Integer id, Integer taskStatus);
+    Integer updateTaskStatus(Integer id, String taskStatus);
 
     /**
      * @author linwei
@@ -82,5 +82,5 @@ public interface TaskService {
      * @param submitStatus
      * @return java.lang.Integer
      */
-    Integer updateSubmitStatus(Integer id, Integer submitStatus);
+    Integer updateSubmitStatus(Integer id, String submitStatus);
 }

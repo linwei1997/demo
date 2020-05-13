@@ -171,7 +171,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map">
     update task_user
     <set>
       <if test="record.id != null">
@@ -255,4 +255,52 @@
       enable_flag = #{enableFlag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--查询已分配的系统任务-->
+  <select id="listDistribute" resultType="java.util.Map">
+    SELECT
+        a.user_name,
+        b.task_type,
+        b.task_name,
+        c.task_status,
+        c.submit_status,
+        c.date,
+        c.urgency
+    FROM
+        user a,
+        task b,
+        task_user c
+    WHERE
+        a.user_id = c.user_id
+        AND c.task_id = b.id
+        <if test='userName != null and userName != ""'>
+          AND a.user_name = #{userName}
+        </if>
+        <if test='taskType != null and taskType != ""'>
+          AND b.task_type = #{taskType}
+        </if>
+        <if test='date != null and date != ""'>
+          AND c.date = #{date}
+        </if>
+        AND a.enable_flag = '1'
+        AND b.enable_flag = '1'
+        AND c.enable_flag = '1'
+  </select>
+  <!--查询用户工作任务-->
+  <select id="listUserTask" resultType="java.util.Map">
+    SELECT
+      a.task_id,
+      a.task_status,
+      a.submit_status,
+      task_name,
+      task_type
+  FROM
+      task_user a,
+      task b
+  WHERE
+      a.task_id = b.task_id
+      AND a.user_id = 1
+      AND b.task_type = '1'
+      AND a.enable_flag = '1'
+      AND b.enable_flag = '1'
+  </select>
 </mapper>

@@ -1,15 +1,30 @@
 package com.demo.service.impl;
 
-import com.demo.model.Task;
-import com.demo.model.User;
+import com.demo.dao.TaskMapper;
+import com.demo.dao.TaskUserMapper;
+import com.demo.dao.UserMapper;
+import com.demo.model.*;
 import com.demo.service.TaskService;
+import com.demo.util.DateUtil;
+import org.apache.ibatis.annotations.ResultType;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @Service("taskService")
 public class TaskServiceImpl implements TaskService {
+
+    @Resource
+    private TaskMapper taskMapper;
+
+    @Resource
+    private UserMapper userMapper;
+
+    @Resource
+    private TaskUserMapper taskUserMapper;
 
     /**
      * @param taskType
@@ -21,7 +36,9 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public List<Task> list(String taskType) {
-        return null;
+        TaskExample example = new TaskExample();
+        example.createCriteria().andEnableFlagEqualTo("1");
+        return taskMapper.selectByExample(example);
     }
 
     /**
@@ -33,7 +50,9 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public List<User> listUser() {
-        return null;
+        UserExample example = new UserExample();
+        example.createCriteria().andEnableFlagEqualTo("1");
+        return userMapper.selectByExample(example);
     }
 
     /**
@@ -48,7 +67,14 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public Integer distribute(Integer userId, String taskId, String urgency) {
-        return null;
+        TaskUser taskUser = new TaskUser();
+        taskUser.setId(null);
+        taskUser.setUserId(userId);
+        taskUser.setTaskId(taskId);
+        taskUser.setDate(DateUtil.getCurrentDate());
+        taskUser.setUrgency(urgency);
+        taskUser.setEnableFlag("1");
+        return taskUserMapper.insertSelective(taskUser);
     }
 
     /**
@@ -63,7 +89,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public List<Map<String, Object>> listDistribute(String date, String userName, String taskType) {
-        return null;
+        return taskUserMapper.listDistribute(date, userName, taskType);
     }
 
     /**
@@ -77,7 +103,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public List<Map<String, Object>> listUserTask(Integer userId, String taskType) {
-        return null;
+        return taskUserMapper.listUserTask(userId, taskType);
     }
 
     /**
@@ -90,8 +116,11 @@ public class TaskServiceImpl implements TaskService {
      * @description 更新任务状态
      */
     @Override
-    public Integer updateTaskStatus(Integer id, Integer taskStatus) {
-        return null;
+    public Integer updateTaskStatus(Integer id, String taskStatus) {
+        TaskUser taskUser = new TaskUser();
+        taskUser.setId(id);
+        taskUser.setTaskStatus(taskStatus);
+        return taskUserMapper.updateByPrimaryKeySelective(taskUser);
     }
 
     /**
@@ -104,7 +133,10 @@ public class TaskServiceImpl implements TaskService {
      * @description 更新提交状态
      */
     @Override
-    public Integer updateSubmitStatus(Integer id, Integer submitStatus) {
-        return null;
+    public Integer updateSubmitStatus(Integer id, String submitStatus) {
+        TaskUser taskUser = new TaskUser();
+        taskUser.setId(id);
+        taskUser.setSubmitStatus(submitStatus);
+        return taskUserMapper.updateByPrimaryKeySelective(taskUser);
     }
 }
