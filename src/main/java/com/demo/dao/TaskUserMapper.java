@@ -40,7 +40,7 @@ public interface TaskUserMapper {
      * @param taskType
      * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      */
-    List<Map<String, Object>> listDistribute(String date, String userName, String taskType);
+    List<Map<String, Object>> listDistribute(@Param("date") String date, @Param("userName") String userName, @Param("taskType") String taskType);
 
     /**
      * @author linwei
@@ -51,5 +51,5 @@ public interface TaskUserMapper {
      * @param taskType
      * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
      */
-    List<Map<String, Object>> listUserTask(Integer userId, String taskType);
+    List<Map<String, Object>> listUserTask(@Param("userId") Integer userId, @Param("taskType") String taskType);
 }

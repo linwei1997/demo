@@ -266,7 +266,7 @@
         c.date,
         c.urgency
     FROM
-        user a,
+        `user` a,
         task b,
         task_user c
     WHERE
@@ -298,8 +298,12 @@
       task b
   WHERE
       a.task_id = b.task_id
-      AND a.user_id = 1
-      AND b.task_type = '1'
+      <if test='userName != null and userName != ""'>
+        AND a.user_name = #{userName}
+      </if>
+      <if test='taskType != null and taskType != ""'>
+        AND b.task_type = #{taskType}
+      </if>
       AND a.enable_flag = '1'
       AND b.enable_flag = '1'
   </select>

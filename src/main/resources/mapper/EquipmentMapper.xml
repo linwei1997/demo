@@ -165,7 +165,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map">
     update equipment
     <set>
       <if test="record.id != null">
@@ -241,4 +241,33 @@
       enable_flag = #{enableFlag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--查询设备-->
+  <select id="list" resultType="java.util.Map">
+    SELECT
+        b.id,
+        b.equipment_name,
+        b.equipment_status,
+        b.equipment_address,
+        b.equipment_company,
+        c.check_order,
+        c.check_title,
+        c.check_content,
+        c.check_status
+    FROM
+        `user` a,
+        equipment b,
+        `check` c
+    WHERE
+        a.user_id = b.user_id
+        AND b.id = c.equipment_id
+        <if test='userName != null and userName != ""'>
+          AND a.user_name = #{userName}
+        </if>
+        <if test='equipmentName != null and equipmentName != ""'>
+          AND a.equipment_name = #{equipmentName}
+        </if>
+        AND a.enable_flag = '1'
+        AND b.enable_flag = '1'
+        AND c.enable_flag = '1'
+  </select>
 </mapper>

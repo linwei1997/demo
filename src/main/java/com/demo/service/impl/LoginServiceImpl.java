@@ -82,7 +82,9 @@ public class LoginServiceImpl implements LoginService {
                 .andEnableFlagEqualTo("1");
         example.setOrderByClause("id desc");
         List<LoginLog> loginLogs = loginLogMapper.selectByExample(example);
-        loginLogs.get(0).setLogoutTime(DateUtil.getCurrentDate());
-        loginLogMapper.updateByPrimaryKeySelective(loginLogs.get(0));
+        if (loginLogs.size() > 0) {
+            loginLogs.get(0).setLogoutTime(DateUtil.getCurrentDate());
+            loginLogMapper.updateByPrimaryKeySelective(loginLogs.get(0));
+        }
     }
 }

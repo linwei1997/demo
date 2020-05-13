@@ -1,13 +1,25 @@
 package com.demo.service.impl;
 
+import com.demo.dao.CheckMapper;
+import com.demo.dao.EquipmentMapper;
+import com.demo.model.Check;
+import com.demo.model.CheckExample;
+import com.demo.model.Equipment;
 import com.demo.service.EquipmentService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @Service("equipmentService")
 public class EquipmentServiceImpl implements EquipmentService {
+
+    @Resource
+    private EquipmentMapper equipmentMapper;
+
+    @Resource
+    private CheckMapper checkMapper;
 
     /**
      * @param userId
@@ -23,7 +35,13 @@ public class EquipmentServiceImpl implements EquipmentService {
      */
     @Override
     public Integer save(Integer userId, String equipmentName, String equipmentStatus, String equipmentAddress, String equipmentCompany) {
-        return null;
+        Equipment equipment = new Equipment();
+        equipment.setId(null);
+        equipment.setEquipmentName(equipmentName);
+        equipment.setEquipmentStatus(equipmentStatus);
+        equipment.setEquipmentAddress(equipmentAddress);
+        equipment.setEquipmentCompany(equipmentCompany);
+        return equipmentMapper.insertSelective(equipment);
     }
 
     /**
@@ -37,7 +55,7 @@ public class EquipmentServiceImpl implements EquipmentService {
      */
     @Override
     public List<Map<String, Object>> list(String userName, String equipmentName) {
-        return null;
+        return equipmentMapper.list(userName, equipmentName);
     }
 
     /**
@@ -53,6 +71,23 @@ public class EquipmentServiceImpl implements EquipmentService {
      */
     @Override
     public Integer check(Integer equipmentId, String checkTitle, String checkContent, String checkStatus) {
-        return null;
+        Check check = new Check();
+        check.setId(null);
+        check.setEquipmentId(equipmentId);
+        check.setCheckTitle(checkTitle);
+        check.setCheckContent(checkContent);
+        check.setCheckStatus(checkStatus);
+        check.setEnableFlag("1");
+        // 获取检验次序
+        CheckExample example = new CheckExample();
+        example.createCriteria().andEquipmentIdEqualTo(equipmentId).andEnableFlagEqualTo("1");
+        example.setOrderByClause("id desc");
+        List<Check> checks = checkMapper.selectByExample(example);
+        if (checks.size() > 0) {
+            check.setCheckOrder(String.valueOf(checks.size() + 1));
+        } else {
+            check.setCheckOrder("1");
+        }
+        return checkMapper.insertSelective(check);
     }
 }
