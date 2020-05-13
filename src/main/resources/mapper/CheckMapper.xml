@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.CheckMapper">
+  <resultMap id="BaseResultMap" type="com.demo.model.Check">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+    <result column="check_order" jdbcType="VARCHAR" property="checkOrder" />
+    <result column="check_title" jdbcType="VARCHAR" property="checkTitle" />
+    <result column="check_content" jdbcType="VARCHAR" property="checkContent" />
+    <result column="check_status" jdbcType="CHAR" property="checkStatus" />
+    <result column="enable_flag" jdbcType="CHAR" property="enableFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, equipment_id, check_order, check_title, check_content, check_status, enable_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.demo.model.CheckExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.demo.model.CheckExample">
+    delete from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.demo.model.Check">
+    insert into check (id, equipment_id, check_order, 
+      check_title, check_content, check_status, 
+      enable_flag)
+    values (#{id,jdbcType=INTEGER}, #{equipmentId,jdbcType=INTEGER}, #{checkOrder,jdbcType=VARCHAR}, 
+      #{checkTitle,jdbcType=VARCHAR}, #{checkContent,jdbcType=VARCHAR}, #{checkStatus,jdbcType=CHAR}, 
+      #{enableFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.model.Check">
+    insert into check
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="equipmentId != null">
+        equipment_id,
+      </if>
+      <if test="checkOrder != null">
+        check_order,
+      </if>
+      <if test="checkTitle != null">
+        check_title,
+      </if>
+      <if test="checkContent != null">
+        check_content,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="enableFlag != null">
+        enable_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="checkOrder != null">
+        #{checkOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTitle != null">
+        #{checkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="checkContent != null">
+        #{checkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="enableFlag != null">
+        #{enableFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.demo.model.CheckExample" resultType="java.lang.Long">
+    select count(*) from check
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update check
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentId != null">
+        equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkOrder != null">
+        check_order = #{record.checkOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTitle != null">
+        check_title = #{record.checkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkContent != null">
+        check_content = #{record.checkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkStatus != null">
+        check_status = #{record.checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.enableFlag != null">
+        enable_flag = #{record.enableFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update check
+    set id = #{record.id,jdbcType=INTEGER},
+      equipment_id = #{record.equipmentId,jdbcType=INTEGER},
+      check_order = #{record.checkOrder,jdbcType=VARCHAR},
+      check_title = #{record.checkTitle,jdbcType=VARCHAR},
+      check_content = #{record.checkContent,jdbcType=VARCHAR},
+      check_status = #{record.checkStatus,jdbcType=CHAR},
+      enable_flag = #{record.enableFlag,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.Check">
+    update check
+    <set>
+      <if test="equipmentId != null">
+        equipment_id = #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="checkOrder != null">
+        check_order = #{checkOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTitle != null">
+        check_title = #{checkTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="checkContent != null">
+        check_content = #{checkContent,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="enableFlag != null">
+        enable_flag = #{enableFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.model.Check">
+    update check
+    set equipment_id = #{equipmentId,jdbcType=INTEGER},
+      check_order = #{checkOrder,jdbcType=VARCHAR},
+      check_title = #{checkTitle,jdbcType=VARCHAR},
+      check_content = #{checkContent,jdbcType=VARCHAR},
+      check_status = #{checkStatus,jdbcType=CHAR},
+      enable_flag = #{enableFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

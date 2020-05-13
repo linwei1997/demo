@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.dao.LawMapper">
+  <resultMap id="BaseResultMap" type="com.demo.model.Law">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="law_title" jdbcType="VARCHAR" property="lawTitle" />
+    <result column="law_content" jdbcType="VARCHAR" property="lawContent" />
+    <result column="enable_flag" jdbcType="CHAR" property="enableFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, law_title, law_content, enable_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.demo.model.LawExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from law
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from law
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from law
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.demo.model.LawExample">
+    delete from law
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.demo.model.Law">
+    insert into law (id, law_title, law_content, 
+      enable_flag)
+    values (#{id,jdbcType=INTEGER}, #{lawTitle,jdbcType=VARCHAR}, #{lawContent,jdbcType=VARCHAR}, 
+      #{enableFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.model.Law">
+    insert into law
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lawTitle != null">
+        law_title,
+      </if>
+      <if test="lawContent != null">
+        law_content,
+      </if>
+      <if test="enableFlag != null">
+        enable_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lawTitle != null">
+        #{lawTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lawContent != null">
+        #{lawContent,jdbcType=VARCHAR},
+      </if>
+      <if test="enableFlag != null">
+        #{enableFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.demo.model.LawExample" resultType="java.lang.Long">
+    select count(*) from law
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update law
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lawTitle != null">
+        law_title = #{record.lawTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lawContent != null">
+        law_content = #{record.lawContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enableFlag != null">
+        enable_flag = #{record.enableFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update law
+    set id = #{record.id,jdbcType=INTEGER},
+      law_title = #{record.lawTitle,jdbcType=VARCHAR},
+      law_content = #{record.lawContent,jdbcType=VARCHAR},
+      enable_flag = #{record.enableFlag,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.Law">
+    update law
+    <set>
+      <if test="lawTitle != null">
+        law_title = #{lawTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lawContent != null">
+        law_content = #{lawContent,jdbcType=VARCHAR},
+      </if>
+      <if test="enableFlag != null">
+        enable_flag = #{enableFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.model.Law">
+    update law
+    set law_title = #{lawTitle,jdbcType=VARCHAR},
+      law_content = #{lawContent,jdbcType=VARCHAR},
+      enable_flag = #{enableFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
