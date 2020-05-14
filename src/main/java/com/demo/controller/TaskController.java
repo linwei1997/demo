@@ -47,6 +47,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【系统任务查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【系统任务查询模块】，查询成功！");
             msg.setData(taskService.list(taskType));
@@ -78,6 +79,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【系统所有用户获取模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【系统所有用户获取模块】，查询成功！");
             msg.setData(taskService.listUser());
@@ -106,6 +108,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【系统任务分配模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer distributeFlag = taskService.distribute(userId, taskId, urgency);
             if (distributeFlag > 0) {
@@ -140,6 +143,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【已分配的系统任务查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【已分配的系统任务查询模块】，查询成功！");
             msg.setData(taskService.listDistribute(date, userName, taskType));
@@ -166,6 +170,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【用户工作任务查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【用户工作任务查询模块】，查询成功！");
             msg.setData(taskService.listUserTask(getLoginUser().getUserId(), taskType));
@@ -193,6 +198,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【任务状态更新模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer updateFlag = taskService.updateTaskStatus(id, taskStatus);
             if (updateFlag > 0) {
@@ -226,6 +232,7 @@ public class TaskController extends BaseController{
             if(null == getLoginUser()){
                 logger.info("【提交状态更新模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer updateFlag = taskService.updateSubmitStatus(id, submitStatus);
             if (updateFlag > 0) {

@@ -44,6 +44,7 @@ public class OperateLogController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【系统操作查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【系统操作查询模块】，查询成功！");
             msg.setData(operateLogService.list());

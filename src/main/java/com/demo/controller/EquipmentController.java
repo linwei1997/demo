@@ -58,6 +58,7 @@ public class EquipmentController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【设备添加模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer saveFlag = equipmentService.save(userId, equipmentName, equipmentStatus, equipmentAddress, equipmentCompany);
             if (saveFlag > 0) {
@@ -91,6 +92,7 @@ public class EquipmentController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【设备查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【设备查询模块】，查询成功！");
             msg.setData(equipmentService.list(userName, equipmentName));
@@ -125,6 +127,7 @@ public class EquipmentController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【设备检验模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer checkFlag = equipmentService.check(equipmentId, checkTitle, checkContent, checkStatus);
             if (checkFlag > 0) {

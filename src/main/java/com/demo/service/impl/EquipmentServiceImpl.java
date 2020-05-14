@@ -44,6 +44,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     public Integer save(Integer userId, String equipmentName, String equipmentStatus, String equipmentAddress, String equipmentCompany) {
         Equipment equipment = new Equipment();
         equipment.setId(null);
+        equipment.setUserId(userId);
         equipment.setEquipmentName(equipmentName);
         equipment.setEquipmentStatus(equipmentStatus);
         equipment.setEquipmentAddress(equipmentAddress);

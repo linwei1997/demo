@@ -49,6 +49,7 @@ public class LawController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【法规添加模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             Integer saveFlag = lawService.save(lawTitle, lawContent);
             if (saveFlag > 0) {
@@ -80,6 +81,7 @@ public class LawController extends BaseController {
             if(null == getLoginUser()){
                 logger.info("【法规查询模块】，登录信息已失效！");
                 msg.setData("登录信息已失效！");
+                return msg;
             }
             logger.info("【法规查询模块】，查询成功！");
             msg.setData(lawService.list());
