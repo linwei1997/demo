@@ -6,6 +6,13 @@ import com.demo.model.User;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:30
+ * @description  任务实现
+ * @return
+ */
 public interface TaskService {
 
     /**

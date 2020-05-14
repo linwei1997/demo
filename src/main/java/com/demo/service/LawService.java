@@ -4,6 +4,13 @@ import com.demo.model.Law;
 
 import java.util.List;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:27
+ * @description  法规实现
+ * @return
+ */
 public interface LawService {
 
     /**

@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import com.demo.common.model.BaseMessage;
 import com.demo.service.EquipmentService;
+import com.demo.service.OperateLogService;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,13 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.Action;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:25
+ * @description  设备控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/equipment")
 public class EquipmentController extends BaseController {
@@ -22,6 +30,9 @@ public class EquipmentController extends BaseController {
 
     @Autowired
     private EquipmentService equipmentService;
+
+    @Autowired
+    OperateLogService operateLogService;
 
     /**
      * @author linwei
@@ -83,6 +94,8 @@ public class EquipmentController extends BaseController {
             }
             logger.info("【设备查询模块】，查询成功！");
             msg.setData(equipmentService.list(userName, equipmentName));
+            // 往操作记录表中插入数据
+            operateLogService.insertOperateLog("5", getLoginUser().getUserId());
         } catch (Exception e) {
             logger.info("操作处理抛出异常！",e);
             msg.setData("操作失败！");

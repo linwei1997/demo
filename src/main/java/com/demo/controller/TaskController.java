@@ -1,6 +1,8 @@
 package com.demo.controller;
 
 import com.demo.common.model.BaseMessage;
+import com.demo.model.OperateLog;
+import com.demo.service.OperateLogService;
 import com.demo.service.TaskService;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -10,6 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:26
+ * @description  任务控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/task")
 public class TaskController extends BaseController{
@@ -18,6 +27,9 @@ public class TaskController extends BaseController{
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    OperateLogService operateLogService;
 
     /**
      * @author linwei
@@ -38,6 +50,12 @@ public class TaskController extends BaseController{
             }
             logger.info("【系统任务查询模块】，查询成功！");
             msg.setData(taskService.list(taskType));
+            // 往操作记录表中插入数据
+            if (taskType.equals("1")) {
+                operateLogService.insertOperateLog("3", getLoginUser().getUserId());
+            } else {
+                operateLogService.insertOperateLog("4", getLoginUser().getUserId());
+            }
         } catch (Exception e) {
             logger.info("操作处理抛出异常！",e);
             msg.setData("操作失败！");

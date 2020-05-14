@@ -6,14 +6,19 @@ import com.demo.dao.UserMapper;
 import com.demo.model.*;
 import com.demo.service.TaskService;
 import com.demo.util.DateUtil;
-import org.apache.ibatis.annotations.ResultType;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:30
+ * @description  任务实现类
+ * @return
+ */
 @Service("taskService")
 public class TaskServiceImpl implements TaskService {
 

@@ -3,6 +3,7 @@ package com.demo.controller;
 import com.demo.common.model.BaseMessage;
 import com.demo.model.LoginLog;
 import com.demo.service.LoginLogService;
+import com.demo.service.OperateLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:26
+ * @description   登录日志控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/loginLog")
 public class LoginLogController extends BaseController {
@@ -20,6 +28,10 @@ public class LoginLogController extends BaseController {
     
     @Autowired
     LoginLogService loginLogService;
+
+    @Autowired
+    OperateLogService operateLogService;
+
     
     /**
      * @author linwei
@@ -40,6 +52,8 @@ public class LoginLogController extends BaseController {
             }
             logger.info("【登录日志查询模块】，查询成功！");
             msg.setData(loginLogService.list());
+            // 往操作记录表中插入数据
+            operateLogService.insertOperateLog("1", getLoginUser().getUserId());
         } catch (Exception e) {
             logger.info("操作处理抛出异常！",e);
             msg.setData("操作失败！");

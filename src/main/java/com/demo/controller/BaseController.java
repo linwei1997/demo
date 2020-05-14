@@ -13,13 +13,11 @@ import javax.servlet.http.HttpSession;
 import static com.demo.service.impl.LoginServiceImpl.LOGIN_USER;
 
 /**
- * 项目名称：framework
- * 类描述：
- * 创建人：QiuYu
- * 创建时间：2017/12/11 14:09
- * 修改人：QiuYu
- * 修改时间：2018-3-27 08:54:01
- * 修改备注：去除内置的BaseMessage对象,单例模式可导致线程安全问题
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:25
+ * @description  session信息
+ * @return
  */
 public class BaseController {
 

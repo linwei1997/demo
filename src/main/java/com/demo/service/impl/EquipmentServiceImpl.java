@@ -12,6 +12,13 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:27
+ * @description  设备实现类
+ * @return
+ */
 @Service("equipmentService")
 public class EquipmentServiceImpl implements EquipmentService {
 

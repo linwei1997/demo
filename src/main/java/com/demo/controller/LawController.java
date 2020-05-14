@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import com.demo.common.model.BaseMessage;
 import com.demo.service.LawService;
+import com.demo.service.OperateLogService;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:25
+ * @description  法规控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/law")
 public class LawController extends BaseController {
@@ -20,6 +28,9 @@ public class LawController extends BaseController {
 
     @Autowired
     LawService lawService;
+
+    @Autowired
+    OperateLogService operateLogService;
 
     /**
      * @author linwei
@@ -72,6 +83,8 @@ public class LawController extends BaseController {
             }
             logger.info("【法规查询模块】，查询成功！");
             msg.setData(lawService.list());
+            // 往操作记录表中插入数据
+            operateLogService.insertOperateLog("6", getLoginUser().getUserId());
         } catch (Exception e) {
             logger.info("操作处理抛出异常！",e);
             msg.setData("操作失败！");

@@ -9,13 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 项目名称：framework
- * 类描述：
- * 创建人：QiuYu
- * 创建时间：2017/12/22 16:47
- * 修改人：
- * 修改时间：
- * 修改备注：
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:21
+ * @description  时间相关方法
+ * @return
  */
 public class DateUtil {
 

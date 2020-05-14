@@ -13,6 +13,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:29
+ * @description  登录实现类
+ * @return
+ */
 @Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
@@ -72,9 +79,16 @@ public class LoginServiceImpl implements LoginService {
         return 3;
     }
 
+    /**
+     * @param loginUser
+     * @return void
+     * @author linwei
+     * @date 2020/5/14
+     * @time 10:29
+     * @description 修改登录日志表中的退出时间
+     */
     @Override
     public void logout(LoginUser loginUser) {
-        // 修改登录日志表中的退出时间
         LoginLogExample example = new LoginLogExample();
         example.createCriteria()
                 .andUserNameEqualTo(loginUser.getUserName())

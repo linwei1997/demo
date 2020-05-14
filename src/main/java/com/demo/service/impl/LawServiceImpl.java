@@ -1,13 +1,26 @@
 package com.demo.service.impl;
 
+import com.demo.dao.LawMapper;
 import com.demo.model.Law;
+import com.demo.model.LawExample;
 import com.demo.service.LawService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:28
+ * @description  法规实现类
+ * @return
+ */
 @Service("lawService")
 public class LawServiceImpl implements LawService {
+
+    @Resource
+    private LawMapper lawMapper;
 
     /**
      * @param lawTitle
@@ -20,7 +33,12 @@ public class LawServiceImpl implements LawService {
      */
     @Override
     public Integer save(String lawTitle, String lawContent) {
-        return null;
+        Law law = new Law();
+        law.setId(null);
+        law.setLawTitle(lawTitle);
+        law.setLawContent(lawContent);
+        law.setEnableFlag("1");
+        return lawMapper.insertSelective(law);
     }
 
     /**
@@ -32,6 +50,8 @@ public class LawServiceImpl implements LawService {
      */
     @Override
     public List<Law> list() {
-        return null;
+        LawExample example = new LawExample();
+        example.createCriteria().andEnableFlagEqualTo("1");
+        return lawMapper.selectByExample(example);
     }
 }

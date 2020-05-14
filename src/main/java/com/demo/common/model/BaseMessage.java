@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 项目名称：framework
- * 类描述：
- * 创建人：QiuYu
- * 创建时间：2017/12/12 15:55
- * 修改人：
- * 修改时间：
- * 修改备注：
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:24
+ * @description  返回参数
+ * @return
  */
 public class BaseMessage {
     private Object data;

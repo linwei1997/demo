@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:26
+ * @description  操作日志控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/operateLog")
 public class OperateLogController extends BaseController {
@@ -40,6 +47,8 @@ public class OperateLogController extends BaseController {
             }
             logger.info("【系统操作查询模块】，查询成功！");
             msg.setData(operateLogService.list());
+            // 往操作记录表中插入数据
+            operateLogService.insertOperateLog("2", getLoginUser().getUserId());
         } catch (Exception e) {
             logger.info("操作处理抛出异常！",e);
             msg.setData("操作失败！");

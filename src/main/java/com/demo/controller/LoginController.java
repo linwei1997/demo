@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.demo.service.impl.LoginServiceImpl.LOGIN_USER;
 
+/**
+ * @author linwei
+ * @date 2020/5/14
+ * @time 10:26
+ * @description  登录控制器
+ * @return
+ */
 @RestController
 @RequestMapping("/login")
 public class LoginController extends BaseController {
