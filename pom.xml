@@ -110,35 +110,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!--docker maven插件 -->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.12</version>
-				<!--docker镜像相关的配置信息 -->
-				<configuration>
-					<!--镜像名，这里用工程名 -->
-					<imageName>${project.artifactId}</imageName>
-					<!--Dockerfile文件所在目录 -->
-					<dockerDirectory>${project.basedir}/src/main/resources/docker</dockerDirectory>
-					<!--指定docker地址 -->
-					<dockerHost>https://47.93.244.197:2375</dockerHost>
-					<!--指定pem证书文件路径地址 -->
-					<dockerCertPath>${project.basedir}/src/main/resources/docker/cert</dockerCertPath>
-					<!--TAG,这里用工程版本号 -->
-					<imageTags>
-						<imageTag>${project.version}</imageTag>
-					</imageTags>
-					<!--构建镜像的配置信息 -->
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
 		</plugins>
 		<!-- 资源项配置 处理配置文件在代码目录下问题 -->
 		<!-- <resources> <resource> <directory>src/main/java</directory> <includes> 

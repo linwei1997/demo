@@ -77,7 +77,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from check
+    from `check`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,21 +88,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from check
+    from `check`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from check
+    delete from `check`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.demo.model.CheckExample">
-    delete from check
+    delete from `check`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.demo.model.Check">
-    insert into check (id, equipment_id, check_order, 
+    insert into `check`  (id, equipment_id, check_order,
       check_title, check_content, check_status, 
       enable_flag)
     values (#{id,jdbcType=INTEGER}, #{equipmentId,jdbcType=INTEGER}, #{checkOrder,jdbcType=VARCHAR}, 
@@ -110,7 +110,7 @@
       #{enableFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.demo.model.Check">
-    insert into check
+    insert into `check`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -159,13 +159,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.demo.model.CheckExample" resultType="java.lang.Long">
-    select count(*) from check
+    select count(*) from `check`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update check
+    update `check`
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -194,7 +194,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update check
+    update `check`
     set id = #{record.id,jdbcType=INTEGER},
       equipment_id = #{record.equipmentId,jdbcType=INTEGER},
       check_order = #{record.checkOrder,jdbcType=VARCHAR},
@@ -207,7 +207,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.Check">
-    update check
+    update `check`
     <set>
       <if test="equipmentId != null">
         equipment_id = #{equipmentId,jdbcType=INTEGER},
@@ -231,7 +231,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.demo.model.Check">
-    update check
+    update `check`
     set equipment_id = #{equipmentId,jdbcType=INTEGER},
       check_order = #{checkOrder,jdbcType=VARCHAR},
       check_title = #{checkTitle,jdbcType=VARCHAR},
